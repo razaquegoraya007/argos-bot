@@ -1,0 +1,21 @@
+2024/09/25-02:05:56.899 1074 Reusing MANIFEST C:\Users\ps5\Desktop\argos-new-9-20-2024\profile\Default\Local Extension Settings\gighmmpiobklfepjocnamgkkbiglidom/MANIFEST-000001
+2024/09/25-02:05:56.900 1074 Recovering log #1334
+2024/09/25-02:05:56.907 1074 Level-0 table #1337: started
+2024/09/25-02:05:56.922 1074 Level-0 table #1337: 777533 bytes OK
+2024/09/25-02:05:56.923 1074 Recovering log #1342
+2024/09/25-02:05:56.926 1074 Reusing old log C:\Users\ps5\Desktop\argos-new-9-20-2024\profile\Default\Local Extension Settings\gighmmpiobklfepjocnamgkkbiglidom/001342.log 
+2024/09/25-02:05:56.927 1074 Delete type=0 #1334
+2024/09/25-02:05:56.927 1074 Delete type=2 #1339
+2024/09/25-02:05:56.927 1074 Delete type=2 #1341
+2024/09/25-02:05:56.927 1074 Delete type=2 #1343
+2024/09/25-02:05:56.929 2794 Compacting 4@0 + 0@1 files
+2024/09/25-02:05:56.948 2794 Generated table #1343@0: 3 keys, 3707 bytes
+2024/09/25-02:05:56.948 2794 Compacted 4@0 + 0@1 files => 3707 bytes
+2024/09/25-02:05:56.950 2794 compacted to: files[ 0 1 1 0 0 0 0 ]
+2024/09/25-02:05:56.951 2794 Delete type=2 #1330
+2024/09/25-02:05:56.951 2794 Delete type=2 #1332
+2024/09/25-02:05:56.951 2794 Delete type=2 #1335
+2024/09/25-02:05:56.951 2794 Delete type=2 #1337
+2024/09/25-02:07:00.763 2794 Level-0 table #1345: started
+2024/09/25-02:07:00.778 2794 Level-0 table #1345: 836698 bytes OK
+2024/09/25-02:07:00.780 2794 Delete type=0 #1342

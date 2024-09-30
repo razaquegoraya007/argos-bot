@@ -1,0 +1,28 @@
+2024/09/25-02:05:56.560 1074 Reusing MANIFEST C:\Users\ps5\Desktop\argos-new-9-20-2024\profile\Default\IndexedDB\chrome-extension_hnmpcagpplmpfojmgmnngilcnanddlhb_0.indexeddb.leveldb/MANIFEST-000001
+2024/09/25-02:05:56.560 1074 Recovering log #103
+2024/09/25-02:05:56.562 1074 Level-0 table #108: started
+2024/09/25-02:05:56.566 1074 Level-0 table #108: 27730 bytes OK
+2024/09/25-02:05:56.566 1074 Recovering log #108
+2024/09/25-02:05:56.567 1074 Reusing old log C:\Users\ps5\Desktop\argos-new-9-20-2024\profile\Default\IndexedDB\chrome-extension_hnmpcagpplmpfojmgmnngilcnanddlhb_0.indexeddb.leveldb/000108.log 
+2024/09/25-02:05:56.568 1074 Delete type=0 #103
+2024/09/25-02:05:56.569 1074 Delete type=2 #110
+2024/09/25-02:05:56.569 1074 Delete type=2 #111
+2024/09/25-02:05:56.713 2e88 Level-0 table #110: started
+2024/09/25-02:05:56.717 2e88 Level-0 table #110: 13144 bytes OK
+2024/09/25-02:05:56.718 2e88 Delete type=0 #108
+2024/09/25-02:05:56.718 2e88 Manual compaction at level-0 from '\x00\x0f\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x10\x00\x00\x00' @ 0 : 0; will stop at '\x00\x03\x02\x1f\x04\x02\x03\x00\x00\xdcXh"yB\x01\x11\x00r\x00o\x00u\x00t\x00e\x00r\x00_\x00n\x00a\x00v\x00i\x00g\x00a\x00t\x00i\x00o\x00n\x00\x03\x00\x00\x00\x00\x00\x19\xe6@' @ 1107889 : 1
+2024/09/25-02:05:56.719 2e88 Compacting 2@0 + 0@1 files
+2024/09/25-02:05:56.722 2e88 Generated table #111@0: 837 keys, 19219 bytes
+2024/09/25-02:05:56.722 2e88 Compacted 2@0 + 0@1 files => 19219 bytes
+2024/09/25-02:05:56.723 2e88 compacted to: files[ 0 1 2 0 0 0 0 ]
+2024/09/25-02:05:56.723 2e88 Delete type=2 #110
+2024/09/25-02:05:56.725 2e88 Manual compaction at level-0 from '\x00\x03\x02\x1f\x04\x02\x03\x00\x00\xdcXh"yB\x01\x11\x00r\x00o\x00u\x00t\x00e\x00r\x00_\x00n\x00a\x00v\x00i\x00g\x00a\x00t\x00i\x00o\x00n\x00\x03\x00\x00\x00\x00\x00\x19\xe6@' @ 1107889 : 1 .. '\x00\x10\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/09/25-02:05:57.731 2794 Compacting 1@1 + 2@2 files
+2024/09/25-02:05:57.805 2794 Generated table #112@1: 30403 keys, 2170872 bytes
+2024/09/25-02:05:57.913 2794 Generated table #113@1: 71989 keys, 1627486 bytes
+2024/09/25-02:05:57.913 2794 Compacted 1@1 + 2@2 files => 3798358 bytes
+2024/09/25-02:05:57.914 2794 compacted to: files[ 0 0 2 0 0 0 0 ]
+2024/09/25-02:05:57.914 2794 Delete type=2 #105
+2024/09/25-02:05:57.914 2794 Delete type=2 #106
+2024/09/25-02:05:57.914 2794 Delete type=2 #108
+2024/09/25-02:05:57.914 2794 Delete type=2 #111

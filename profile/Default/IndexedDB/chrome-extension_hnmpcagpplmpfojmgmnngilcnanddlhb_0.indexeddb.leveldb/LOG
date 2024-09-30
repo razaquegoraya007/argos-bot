@@ -1,0 +1,28 @@
+2024/09/25-14:05:18.547 2a58 Reusing MANIFEST C:\Users\ps5\Desktop\argos-new-9-20-2024\profile\Default\IndexedDB\chrome-extension_hnmpcagpplmpfojmgmnngilcnanddlhb_0.indexeddb.leveldb/MANIFEST-000001
+2024/09/25-14:05:18.548 2a58 Recovering log #109
+2024/09/25-14:05:18.549 2a58 Level-0 table #115: started
+2024/09/25-14:05:18.551 2a58 Level-0 table #115: 7627 bytes OK
+2024/09/25-14:05:18.552 2a58 Recovering log #144
+2024/09/25-14:05:18.552 2a58 Reusing old log C:\Users\ps5\Desktop\argos-new-9-20-2024\profile\Default\IndexedDB\chrome-extension_hnmpcagpplmpfojmgmnngilcnanddlhb_0.indexeddb.leveldb/000144.log 
+2024/09/25-14:05:18.553 2a58 Delete type=0 #103
+2024/09/25-14:05:18.553 2a58 Delete type=2 #105
+2024/09/25-14:05:18.553 2a58 Delete type=2 #106
+2024/09/25-14:05:18.553 2a58 Delete type=0 #109
+2024/09/25-14:05:18.553 2a58 Delete type=2 #146
+2024/09/25-14:05:18.554 2a58 Delete type=2 #147
+2024/09/25-14:05:18.693 14b0 Level-0 table #146: started
+2024/09/25-14:05:18.695 14b0 Level-0 table #146: 1806 bytes OK
+2024/09/25-14:05:18.696 14b0 Delete type=0 #144
+2024/09/25-14:05:18.696 14b0 Manual compaction at level-0 from '\x00\x10\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x11\x00\x00\x00' @ 0 : 0; will stop at '\x00\x03\x02\x1f\x04\x02\x03\x00\x80njk"yB\x01\x0c\x00s\x00e\x00t\x00_\x00l\x00o\x00c\x00a\x00t\x00i\x00o\x00n\x00\x03\x00\x00\x00\x00 \x1d\xe6@' @ 1108929 : 1
+2024/09/25-14:05:18.696 14b0 Compacting 2@0 + 0@1 files
+2024/09/25-14:05:18.698 14b0 Generated table #147@0: 195 keys, 5197 bytes
+2024/09/25-14:05:18.698 14b0 Compacted 2@0 + 0@1 files => 5197 bytes
+2024/09/25-14:05:18.699 14b0 compacted to: files[ 0 1 2 0 0 0 0 ]
+2024/09/25-14:05:18.699 14b0 Delete type=2 #146
+2024/09/25-14:05:18.700 3234 Manual compaction at level-0 from '\x00\x03\x02\x1f\x04\x02\x03\x00\x80njk"yB\x01\x0c\x00s\x00e\x00t\x00_\x00l\x00o\x00c\x00a\x00t\x00i\x00o\x00n\x00\x03\x00\x00\x00\x00 \x1d\xe6@' @ 1108929 : 1 .. '\x00\x11\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/09/25-14:05:19.453 2f34 Compacting 1@1 + 2@2 files
+2024/09/25-14:05:19.506 2f34 Generated table #148@1: 30401 keys, 2170760 bytes
+2024/09/25-14:05:19.603 2f34 Generated table #149@1: 72024 keys, 1630882 bytes
+2024/09/25-14:05:19.603 2f34 Compacted 1@1 + 2@2 files => 3801642 bytes
+2024/09/25-14:05:19.604 2f34 compacted to: files[ 0 0 2 0 0 0 0 ]
+2024/09/25-14:05:19.604 2f34 Delete type=2 #115

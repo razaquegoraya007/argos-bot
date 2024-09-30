@@ -1,0 +1,39 @@
+{
+   "action": {
+      "default_icon": {
+         "128": "/image/icon/free/128.png",
+         "16": "/image/icon/free/16.png",
+         "24": "/image/icon/free/24.png",
+         "256": "/image/icon/free/256.png",
+         "32": "/image/icon/free/32.png",
+         "48": "/image/icon/free/48.png",
+         "512": "/image/icon/free/512.png",
+         "64": "/image/icon/free/64.png"
+      },
+      "default_popup": "/ng/popup/comp/popup/popup.html",
+      "default_title": "Auto Clear Browsing Data"
+   },
+   "author": "KodeMuse Software Private Limited",
+   "background": {
+      "service_worker": "/background/sw.dart.js"
+   },
+   "description": "Helps users to automatically clear your browsing data after pre-defined time intervals.",
+   "homepage_url": "https://www.kodemuse.dev/auto-clear-browsing-data/",
+   "icons": {
+      "128": "/image/icon/free/128.png",
+      "16": "/image/icon/free/16.png",
+      "24": "/image/icon/free/24.png",
+      "256": "/image/icon/free/256.png",
+      "32": "/image/icon/free/32.png",
+      "48": "/image/icon/free/48.png",
+      "512": "/image/icon/free/512.png",
+      "64": "/image/icon/free/64.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqTWrjOsAoQFGDJCr14ilEIcKaHw3L95qyYZd6TT7hx/20bgvZf05xZhvHWvGyrFo0VFqYOA0wf1LkeSAX/TR+rL4G0HJs1hmsmTvP7rUq6hkfExJ4zE/1Z0CP+nFaaO0qgZinm3JJOmki/SxWABBg/d5d06Tz81Bh2hV0sS4F309cZSQlU5zP4wqC0nZ/LuP26MxOfLULHV6/x7+/90qyEGSmCSHb/wgAezmVSNXERSLVlzGswrIOs4Z1kXORuSnWxfMH7RPwIddoUbnfE4MSnN9au2xZeEM6RhgvV6+Gl4vL+/3dHk+gQxOQ/aDJhCe5LYn/qQ1iM4WZcF950ioowIDAQAB",
+   "manifest_version": 3,
+   "name": "Auto Clear Browsing Data",
+   "permissions": [ "storage", "unlimitedStorage", "browsingData", "alarms" ],
+   "short_name": "ACBD",
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "3.0.0.1"
+}

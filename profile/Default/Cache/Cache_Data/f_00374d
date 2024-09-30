@@ -1,0 +1,403 @@
+/* === VARIABLES === */
+let container     = myFT.$('#container')[0],
+    mediaFrames   = myFT.$('#mediaFrames')[0],
+    endFrameImage = myFT.$('#endFrameImage')[0],
+
+    mediaImageCount = 0,
+    imagesLoaded = 0, imagesToLoad = 0,
+    adWidth, adHeight,
+
+    loops = -1,
+    maxLoops = 1,
+    maxDuration = 30;
+
+myFT.on("instantads", function() {
+  adWidth  = myFT.getManifest("width");
+  adHeight = myFT.getManifest("height");
+  WebFont.load({
+    custom: {families: ["NOWTVTextLight", "NOWTVTextRegular"]},
+    timeout: 15 * 1000,
+    active: function() {
+      console.log("- fonts loaded");
+      init();
+    },
+    inactive: function() { console.log("- fonts failed to load or timed out"); }
+  });
+});
+
+/* === IMAGE LOADING === */
+function loadImage(ele, img){
+  imagesToLoad++;
+  ele.onload = imageLoadCheck;
+  ele.src = img;
+}
+function imageLoadCheck(){
+  imagesLoaded++;
+  startAd();
+}
+function startAd(){
+  if (imagesLoaded==imagesToLoad){
+    removePreloader();
+    animate();
+    for (i = 0; i < document.getElementsByClassName('mediaCopy').length; i++) {
+      let integer = i + 1;
+      shrinkText(this["mediaCopy" + integer]);
+    }
+  }
+}
+
+/* === REMOVE PRELOADER === */
+function removePreloader() {               
+  gsap.to('#preloader', 0.5, {autoAlpha:0});
+};
+
+/* === CREATE FUNCTIONS === */
+function createElement(container, name, type, content, shrinkrVal) {
+  let ele = document.createElement(type);
+      ele.className = name;
+      container.appendChild(ele);
+  if (type == 'div') {
+    ele.id = name;
+  }
+  if (type == 'p') {
+    ftUtils(ele,{applyText:content, shrinkr:shrinkrVal, fixWidows:true});
+  }
+  if (type == 'img') {
+    loadImage(ele, content);
+    ele.style.position = 'absolute';
+  }
+  return ele;
+}
+
+/* === CONFIG PARSER === */
+function loadConfig(configString) {         
+  var obj = {};
+  if (configString) {
+    try {
+      var cfgString = configString.replace(/'/g, '"');
+      obj = JSON.parse(cfgString);
+    } catch(err) {
+      console.log("FAILED TO PARSE: "+configString);
+      console.log(err);
+    }
+  }
+  return(obj);
+}
+
+/* === INIT === */
+function init() {
+  if (myFT.instantAds.main_copy_tagline.length < 1 && myFT.instantAds.main_copy_price.length < 1 && myFT.instantAds.main_copy_subline.length < 1 && myFT.instantAds.main_copy_cta.length > 1) {
+    //console.log("NO TAGLINE, NO PRICE, NO SUBLINE");
+    if (myFT.instantAds.main_copy_cta.length > 1) {
+      mainCopyCTA = createElement(mainCopyHolder, 'mainCopy mainCopyCTA', 'p', myFT.instantAds.main_copy_cta, true);
+      mainCopyCTA.addEventListener("mouseover", ctaHover);
+      mainCopyCTA.addEventListener("mouseleave", ctaOut);
+    }
+    mainCopy2Container.remove();
+    mainCopy3Container.remove();
+    mainCopy4Container.remove();
+    if (myFT.instantAds.media_image_endframe.indexOf("blank.png") == -1) {
+      mainCopyHolder.style.height = "40%";
+      mainCopyHolder.style.marginTop = "40%";
+      mainCopy1Container.style.minHeight = "25%";
+    }
+    applyContent(true, false, false, false);
+  } else if (myFT.instantAds.main_copy_price.length < 1 && myFT.instantAds.main_copy_subline.length < 1 && myFT.instantAds.main_copy_cta.length > 1) {
+    //console.log("NO PRICE, NO SUBLINE");
+    if (myFT.instantAds.main_copy_cta.length > 1) {
+      mainCopyCTA = createElement(mainCopyHolder, 'mainCopy mainCopyCTA', 'p', myFT.instantAds.main_copy_cta, true);
+      mainCopyCTA.addEventListener("mouseover", ctaHover);
+      mainCopyCTA.addEventListener("mouseleave", ctaOut);
+    }
+    mainCopy3Container.remove();
+    mainCopy4Container.remove();
+    applyContent(true, true, false, false);
+  } else if (myFT.instantAds.main_copy_tagline.length < 1 && myFT.instantAds.main_copy_price.length < 1 && myFT.instantAds.main_copy_cta.length > 1) {
+    //console.log("NO TAGLINE, NO PRICE");
+    if (myFT.instantAds.main_copy_cta.length > 1) {
+      mainCopyCTA = createElement(mainCopyHolder, 'mainCopy mainCopyCTA', 'p', myFT.instantAds.main_copy_cta, true);
+      mainCopyCTA.addEventListener("mouseover", ctaHover);
+      mainCopyCTA.addEventListener("mouseleave", ctaOut);
+    }
+    mainCopy2Container.remove();
+    mainCopy3Container.remove();
+    if (myFT.instantAds.media_image_endframe.indexOf("blank.png") == -1) {
+      mainCopyHolder.style.height = "40%";
+      mainCopyHolder.style.marginTop = "32%";
+      mainCopy1Container.style.minHeight = "25%";
+    }
+    applyContent(true, false, false, true);
+  } else if (myFT.instantAds.main_copy_tagline.length < 1 && myFT.instantAds.main_copy_price.length < 1) {
+    //console.log("NO TAGLINE, NO PRICE, NO CTA");
+    mainCopy2Container.remove();
+    mainCopy3Container.remove();
+    if (myFT.instantAds.media_image_endframe.indexOf("blank.png") == -1) {
+      mainCopyHolder.style.height = "30%";
+      mainCopyHolder.style.marginTop = "50%";
+      mainCopy1Container.style.minHeight = "25%";
+    }
+    applyContent(true, false, false, true);
+  } else if (myFT.instantAds.main_copy_tagline.length < 1) {
+    //console.log("NO TAGLINE");
+    if (myFT.instantAds.main_copy_cta.length > 1) {
+      mainCopyCTA = createElement(mainCopyHolder, 'mainCopy mainCopyCTA', 'p', myFT.instantAds.main_copy_cta, true);
+      mainCopyCTA.addEventListener("mouseover", ctaHover);
+      mainCopyCTA.addEventListener("mouseleave", ctaOut);
+    }
+    mainCopy2Container.remove();
+    applyContent(true, false, true, true);
+  } else if (myFT.instantAds.main_copy_price.length < 1) {
+    //console.log("NO PRICE");
+    if (myFT.instantAds.main_copy_cta.length > 1) {
+      mainCopyCTA = createElement(mainCopyHolder, 'mainCopy mainCopyCTA', 'p', myFT.instantAds.main_copy_cta, true);
+      mainCopyCTA.addEventListener("mouseover", ctaHover);
+      mainCopyCTA.addEventListener("mouseleave", ctaOut);
+    }
+    mainCopy3Container.remove();
+    applyContent(true, true, false, true);
+  } else {
+    if (myFT.instantAds.main_copy_cta.length > 1) {
+      mainCopyCTA = createElement(mainCopyHolder, 'mainCopy mainCopyCTA', 'p', myFT.instantAds.main_copy_cta, true);
+      mainCopyCTA.addEventListener("mouseover", ctaHover);
+      mainCopyCTA.addEventListener("mouseleave", ctaOut);
+    }
+    applyContent(true, true, true, true);
+  }
+  let mainCopyHeadlineConfigObjs = loadConfig(myFT.instantAds["banner_config"]).main_copy_headline;
+  let mainCopyTaglineConfigObjs = loadConfig(myFT.instantAds["banner_config"]).main_copy_tagline;
+  let mainCopyPriceConfigObjs = loadConfig(myFT.instantAds["banner_config"]).main_copy_price;
+  let mainCopySublineConfigObjs = loadConfig(myFT.instantAds["banner_config"]).main_copy_subline;
+  let mainCopyCTAConfigObjs = loadConfig(myFT.instantAds["banner_config"]).main_copy_cta;
+  if (mainCopyHeadlineConfigObjs) {
+    gsap.set(mainCopy1Container, mainCopyHeadlineConfigObjs);
+    ftUtils(document.querySelector(".mainCopy1"), {shrinkr:true});
+  }
+  if (mainCopyTaglineConfigObjs) {
+    gsap.set(mainCopy2Container, mainCopyTaglineConfigObjs);
+    ftUtils(document.querySelector(".mainCopy2"), {shrinkr:true});
+  }
+  if (mainCopyPriceConfigObjs) {
+    gsap.set(mainCopy3Container, mainCopyPriceConfigObjs);
+    let selected = document.querySelectorAll(".mainCopy3");
+    selected.forEach((copy) => {
+      ftUtils(copy, {shrinkr:true});
+    });
+  }
+  if (mainCopySublineConfigObjs) {
+    gsap.set(mainCopy4Container, mainCopySublineConfigObjs);
+    ftUtils(document.querySelector(".mainCopy4"), {shrinkr:true});
+  }
+  if (mainCopyCTAConfigObjs) {
+    gsap.set(mainCopyCTA, mainCopyCTAConfigObjs);
+    ftUtils(mainCopyCTA, {shrinkr:true});
+  }
+
+  mediaImage1 = createElement(imageContainer, 'image mediaImage mediaImage1', 'img', myFT.instantAds.media_image_1);
+  mediaCopy1  = createElement(imageContainer, 'mediaCopy mediaCopy1', 'p', myFT.instantAds.media_copy_1, true);
+  mediaLogo1  = createElement(imageContainer, 'mediaLogo mediaLogo1', 'img', myFT.instantAds.media_logo_1);
+  let mediaImage1ConfigObjs = loadConfig(myFT.instantAds["banner_config"]).media_image_1;
+  let mediaCopy1ConfigObjs = loadConfig(myFT.instantAds["banner_config"]).media_copy_1;
+  let mediaLogo1ConfigObjs = loadConfig(myFT.instantAds["banner_config"]).media_logo_1;
+  if (mediaImage1ConfigObjs) gsap.set(mediaImage1, mediaImage1ConfigObjs);
+  if (mediaCopy1ConfigObjs) gsap.set(mediaCopy1, mediaCopy1ConfigObjs);
+  if (mediaLogo1ConfigObjs) gsap.set(mediaLogo1, mediaLogo1ConfigObjs);
+
+
+  for (i=0; i<5; i++) {
+    let integer = i + 2;
+    if (myFT.instantAds["media_image_" + integer].substr(-9) != "blank.png") {
+      mediaImageCount++;
+    }
+  }
+  if (mediaImageCount > 3) {
+    maxLoops = 0;
+  } else if (mediaImageCount < 4 && mediaImageCount > 1) {
+    maxLoops = 1;
+  } else if (mediaImageCount < 2) {
+    maxLoops = 2;
+  }
+  //console.log(mediaImageCount);
+
+  for (i=0; i<mediaImageCount; i++) {
+    let integer = i + 2;
+    if (myFT.instantAds["media_image_" + integer].substr(-9) != "blank.png") {
+      //console.log('- media_image_' + integer + ' has an image');
+      this["mediaImage" + integer] = createElement(imageContainer, 'image mediaImage mediaImage' + integer, 'img', myFT.instantAds["media_image_" + integer]);
+      this["mediaCopy" + integer]  = createElement(imageContainer, 'mediaCopy mediaCopy' + integer, 'p', myFT.instantAds["media_copy_" + integer], true);
+      this["mediaLogo" + integer]  = createElement(imageContainer, 'mediaLogo mediaLogo' + integer, 'img', myFT.instantAds["media_logo_" + integer]);
+      let mediaImageConfigObjs = loadConfig(myFT.instantAds["banner_config"])["media_image_" + integer];
+      let mediaCopyConfigObjs = loadConfig(myFT.instantAds["banner_config"])["media_copy_" + integer];
+      let mediaLogoConfigObjs = loadConfig(myFT.instantAds["banner_config"])["media_logo_" + integer];
+      if (mediaImageConfigObjs) gsap.set(this["mediaImage" + integer], mediaImageConfigObjs);
+      if (mediaCopyConfigObjs) gsap.set(this["mediaCopy" + integer], mediaCopyConfigObjs);
+      if (mediaLogoConfigObjs) gsap.set(this["mediaLogo" + integer], mediaLogoConfigObjs);
+      gsap.set([this["mediaImage" + integer], this["mediaCopy" + integer], this["mediaLogo" + integer]], {x: -200});
+    }
+  }
+
+  if (myFT.instantAds.media_image_endframe.indexOf("blank.png") == -1) {
+    loadImage(endFrameImage, myFT.instantAds.media_image_endframe);
+    let endFrameConfigObjs = loadConfig(myFT.instantAds["banner_config"]).media_image_endframe;
+    if (endFrameConfigObjs) gsap.set(endFrameImage, endFrameConfigObjs);
+  }
+
+  loadImage(logo, myFT.instantAds.logo);
+  let logoConfigObjs = loadConfig(myFT.instantAds["banner_config"]).logo;
+  if (logoConfigObjs) gsap.set(logo, logoConfigObjs);
+  // ftUtils(copyright, {applyText:myFT.instantAds.copyright, shrinkr:true});
+  // copyright.style.zIndex = 2;
+
+  //console.log(myFT.instantAds.legals.length);
+  if (myFT.instantAds.legals.length > 125) {
+    legals.style.fontSize = "8px";
+    createElement(legalBox, 'legalText', 'p', myFT.instantAds.legals, true);
+    let legalBoxConfigObjs = loadConfig(myFT.instantAds["banner_config"]).legal_box;
+    if (legalBoxConfigObjs) gsap.set(legalBox, legalsConfigObjs);
+    let legalsConfigObjs = loadConfig(myFT.instantAds["banner_config"]).legals;
+    if (legalsConfigObjs) gsap.set(legals, legalsConfigObjs);
+    ftUtils(legals, {applyText:"Click for legals", shrinkr:true});
+    legals.addEventListener("click", legalsOpen);
+    closeBtn.addEventListener("click", legalsClose);
+  } else {
+    let legalsConfigObjs = loadConfig(myFT.instantAds["banner_config"]).legals;
+    if (legalsConfigObjs) gsap.set(legals, legalsConfigObjs);
+    ftUtils(legals, {applyText:myFT.instantAds.legals, shrinkr:true});
+    legals.style.zIndex = 2;
+  }
+
+  if (myFT.instantAds.main_copy_cta.length > 1) {
+    myFT.applyClickTag([click, mainCopyCTA], 1, myFT.instantAds.click_url);
+  } else {
+    myFT.applyClickTag(click, 1, myFT.instantAds.click_url);
+  }
+}
+
+/* === APPLY FUNCTION === */
+function applyContent(mainCopy1Bool, mainCopy2Bool, mainCopy3Bool, mainCopy4Bool) {
+  if (mainCopy1Bool) { mainCopy1 = createElement(mainCopy1Container, 'mainCopy mainCopy1', 'p', myFT.instantAds.main_copy_headline, true); }
+  if (mainCopy2Bool) { mainCopy2 = createElement(mainCopy2Container, 'mainCopy mainCopy2', 'p', myFT.instantAds.main_copy_tagline, true); }
+  let mainCopy3 = myFT.instantAds.main_copy_price;
+  const splitMainCopy3 = mainCopy3.split("|");
+  if (mainCopy3Bool) {
+    if (splitMainCopy3.length > 2) {
+      mainCopy3a = createElement(mainCopy3Holder, 'mainCopy mainCopy3 mainCopy3a', 'p', splitMainCopy3[0], true);
+      mainCopy3b = createElement(mainCopy3Holder, 'mainCopy mainCopy3 mainCopy3b', 'p', splitMainCopy3[1], false);
+      mainCopy3c = createElement(mainCopy3Holder, 'mainCopy mainCopy3 mainCopy3c', 'p', splitMainCopy3[2], true);
+      if (myFT.instantAds.main_copy_tagline.length < 1) {
+        mainCopy3Container.style.height = "70px";
+        mainCopy3Container.style.bottom = "70px";
+        mainCopy3Holder.style.flexDirection = "column";
+        mainCopy3Holder.style.alignItems = "center";
+        mainCopy3a.style.fontSize = "12px";
+        mainCopy3b.style.fontSize = "40px";
+        mainCopy3c.style.fontSize = "12px";
+        ftUtils(mainCopy3a, {shrinkr:true});
+        ftUtils(mainCopy3b, {shrinkr:true});
+        ftUtils(mainCopy3c, {shrinkr:true});
+      }
+    } else {
+      mainCopy3b = createElement(mainCopy3Holder, 'mainCopy mainCopy3 mainCopy3b', 'p', splitMainCopy3[0], true);
+      mainCopy3c = createElement(mainCopy3Holder, 'mainCopy mainCopy3 mainCopy3c', 'p', splitMainCopy3[1], true);
+      mainCopy3Holder.style.columnGap = "0";
+      if (myFT.instantAds.main_copy_tagline.length < 1) {
+        mainCopy3Container.style.height = "55px";
+        mainCopy3Container.style.bottom = "70px";
+        mainCopy3Holder.style.flexDirection = "column";
+        mainCopy3Holder.style.alignItems = "center";
+        mainCopy3b.style.fontSize = "40px";
+        mainCopy3c.style.fontSize = "12px";
+        ftUtils(mainCopy3b, {shrinkr:true});
+        ftUtils(mainCopy3c, {shrinkr:true});
+      }
+    }
+  }
+  if (mainCopy4Bool) { mainCopy4  = createElement(mainCopy4Container, 'mainCopy mainCopy4', 'p', myFT.instantAds.main_copy_subline, false); }
+}
+
+/* === ANIMATE FUNCTION === */
+function animate() {
+  loops++;
+
+  let count = 5;
+
+  if (mediaImageCount > 0) {
+    count = 3.5;
+
+    gsap.fromTo([mediaFrames, logo], 0.5, {opacity: 0}, {opacity: 1});
+    if (myFT.instantAds.media_image_endframe.indexOf("blank.png") == -1) {
+      gsap.set(endFrameImage, {opacity: 1, delay: 0.5});
+    }
+    gsap.set([mediaImage1, mediaCopy1, mediaLogo1], {x: 0, delay: count + 0.5});
+    //  onComplete: function(){
+    //   gsap.set([mediaImage1, mediaCopy1, mediaLogo1], {zIndex: 1});
+    // }});
+
+    for (i=0; i<mediaImageCount; i++) {
+      let integer = i + 2;
+      gsap.to([this["mediaImage" + integer], this["mediaCopy" + integer], this["mediaLogo" + integer]], 0.5, {x: 0, ease: Power1.easeOut, delay: count});
+      count = count + 3.5;
+      if (i > 0) {
+        gsap.set([this["mediaImage" + (integer-1)], this["mediaCopy" + (integer-1)], this["mediaLogo" + (integer-1)]], {x: -300});
+      }
+      if (i == mediaImageCount-1) {
+        gsap.set([this["mediaImage" + integer], this["mediaCopy" + integer], this["mediaLogo" + integer]], {x: -300});
+      } 
+    }
+    // console.log(count);
+    // console.log(mediaImageCount);
+    // endframe animates in delay is count
+    gsap.to(mediaFrames, {opacity: 0, delay: count});
+    gsap.to(mainCopyHolder, 0.5, {opacity: 1, delay: count+0.5});
+    gsap.to(document.getElementById("legals"), 0.5, {opacity: 1, delay: count+0.5});
+  } else if (mediaImageCount == 0) {
+    gsap.fromTo([mediaFrames, logo], 0.5, {opacity: 0}, {opacity: 1});
+    if (myFT.instantAds.media_image_endframe.indexOf("blank.png") == -1) {
+      gsap.set(endFrameImage, {opacity: 1, delay: 0.5});
+    }
+    gsap.to(mediaFrames, {opacity: 0, delay: 4.5});
+    gsap.to(mainCopyHolder, 0.5, {opacity: 1, delay: 5});
+    gsap.to(document.getElementById("legals"), 0.5, {opacity: 1, delay: 5});
+    // console.log(mediaImageCount);
+  }
+
+  if (loops < maxLoops) {
+    gsap.to([mainCopyHolder, logo, legals], {opacity: 0, delay: count+3.5, onComplete: function(){
+      mediaImage1.style.removeProperty('z-index');
+      mediaCopy1.style.removeProperty('z-index');
+      mediaLogo1.style.removeProperty('z-index');
+      animate();
+    }});
+  }
+}
+
+
+/* === CTA FUNCTIONS === */
+function ctaHover(e){
+  try {
+    gsap.to(mainCopyCTA, 0.25, {scale: 1.05});
+  } catch(err) {}  
+}
+function ctaOut(e){
+  try {
+    gsap.to(mainCopyCTA, 0.25, {scale: 1});
+  } catch(err) {}
+}
+
+/* === LEGALS FUNCTIONS === */
+function legalsOpen(e){
+  try {
+    legals.style.zIndex = 2;
+    gsap.to([legalBox, closeBtn], 0.25, {y: 0});
+  } catch(err) {}  
+}
+function legalsClose(e){
+  try {
+    legals.style.zIndex = 3;
+    gsap.to([legalBox, closeBtn], 0.25, {y: 75});
+  } catch(err) {}
+}
+
+/* === SHRINK TEXT === */
+function shrinkText(text){
+  ftUtils(text, {shrinkr:true});
+}
